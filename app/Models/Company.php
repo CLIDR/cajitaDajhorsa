@@ -12,4 +12,9 @@ class Company extends Model
         'company_name',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
