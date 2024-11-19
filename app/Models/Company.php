@@ -11,10 +11,12 @@ class Company extends Model
         'company_ruc',
         'company_name',
         'status',
+        'address',
+        'phone_number',
     ];
 
-    public function user()
+    public function members()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
     }
 }

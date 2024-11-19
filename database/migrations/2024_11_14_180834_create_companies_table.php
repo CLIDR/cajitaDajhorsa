@@ -14,11 +14,19 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->char('company_num', 1);
+            $table->char('company_num', 1)->nullable();
             $table->char('company_ruc', 20);
             $table->string('company_name');
             $table->boolean('status')->default(true);
-            $table->foreignIdFor(User::class)->constrained()->nullOnDelete();
+            $table->string('address')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('company_user', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('company_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
@@ -29,5 +37,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('companies');
+        Schema::dropIfExists('company_user');
     }
 };

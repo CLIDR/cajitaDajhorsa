@@ -52,6 +52,7 @@ class CompanyResource extends Resource
                     ->prefix('+51')
                     ->mask('999999999'),
                 Select::make('user_id')
+                    ->label('ADMINISTRATOR')
                     ->relationship('user', 'name')
 
             ]);
