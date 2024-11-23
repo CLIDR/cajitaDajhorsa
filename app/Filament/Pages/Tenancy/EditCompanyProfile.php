@@ -4,6 +4,7 @@ namespace App\Filament\Pages\Tenancy;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Pages\Tenancy\EditTenantProfile;
 
 class EditCompanyProfile extends EditTenantProfile
@@ -17,11 +18,11 @@ class EditCompanyProfile extends EditTenantProfile
     {
         return $form
             ->schema([
-                TextInput::make('company_ruc')
+                TextInput::make('ruc')
                     ->label('N° RUC')
                     ->mask('99999999999')
                     ->placeholder('20600443268'),
-                TextInput::make('company_name')
+                TextInput::make('name')
                     ->label('RAZON SOCIAL')
                     ->autocapitalize('words')
                     ->placeholder('DAJHORSA ASESOR EMPRESARIAL EIRL'),

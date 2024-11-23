@@ -7,11 +7,14 @@ use Filament\Panel;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\HasTenants;
+use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser, HasTenants
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -60,9 +63,18 @@ class User extends Authenticatable
     {
         return $this->companies;
     }
-
     public function canAccessTenant(Model $tenant): bool
     {
         return $this->companies()->whereKey($tenant)->exists();
+    }
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        return true; // TODO: Add logic to check if user can access panel builder
+    }
+
+    public function getTenantName(Model $panel): string
+    {
+        dd('hola');
+        return 'hola'; // TODO: Add
     }
 }

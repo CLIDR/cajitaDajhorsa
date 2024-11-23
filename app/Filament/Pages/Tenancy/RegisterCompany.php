@@ -20,11 +20,11 @@ class RegisterCompany extends RegisterTenant
     {
         return $form
             ->schema([
-                TextInput::make('company_ruc')
+                TextInput::make('ruc')
                     ->label('N° RUC')
                     ->mask('99999999999')
                     ->placeholder('20600443268'),
-                TextInput::make('company_name')
+                TextInput::make('name')
                     ->label('RAZON SOCIAL')
                     ->autocapitalize('words')
                     ->placeholder('DAJHORSA ASESOR EMPRESARIAL EIRL'),
@@ -39,10 +39,10 @@ class RegisterCompany extends RegisterTenant
 
     protected function handleRegistration(array $data): Company
     {
-        $team = Company::create($data);
+        $company = Company::create($data);
 
-        $team->members()->attach(auth()->user());
+        $company->members()->attach(auth()->user());
 
-        return $team;
+        return $company;
     }
 }

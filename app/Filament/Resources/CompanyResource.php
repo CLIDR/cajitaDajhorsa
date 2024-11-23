@@ -30,12 +30,12 @@ class CompanyResource extends Resource
                     ->label('N° RUC')
                     ->mask('99999999999')
                     ->suffixAction(
-                        Action::make('company_ruc')
+                        Action::make('ruc')
                             ->label('SUNAT')
                             ->icon('heroicon-m-magnifying-glass')
                     )
                     ->placeholder('20600443268'),
-                TextInput::make('company_name')
+                TextInput::make('name')
                     ->label('RAZON SOCIAL')
                     ->autocapitalize('words')
                     ->placeholder('DAJHORSA ASESOR EMPRESARIAL EIRL'),
@@ -51,9 +51,9 @@ class CompanyResource extends Resource
                     ->label('CELULAR')
                     ->prefix('+51')
                     ->mask('999999999'),
-                Select::make('user_id')
-                    ->label('ADMINISTRATOR')
-                    ->relationship('user', 'name')
+                // Select::make('user_id')
+                //     ->label('ADMINISTRATOR')
+                //     ->relationship('user', 'name')
 
             ]);
     }
