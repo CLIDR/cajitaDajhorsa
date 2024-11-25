@@ -1,20 +1,24 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
-use App\Filament\Resources\CompanyResource\Pages;
-use App\Filament\Resources\CompanyResource\RelationManagers;
-use App\Models\Company;
 use Filament\Forms;
-use Filament\Forms\Components\Actions\Action;
+use Filament\Tables;
+use App\Models\Company;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\Actions\Action;
+use App\Filament\Resources\CompanyResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\CompanyResource\RelationManagers;
+use App\Filament\Admin\Resources\CompanyResource\Pages\EditCompany;
+use App\Filament\Admin\Resources\CompanyResource\Pages\CreateCompany;
+use App\Filament\Admin\Resources\CompanyResource\Pages\ListCompanies;
+use Filament\Tables\Columns\TextColumn;
 
 class CompanyResource extends Resource
 {
@@ -26,7 +30,7 @@ class CompanyResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('company_ruc')
+                TextInput::make('ruc')
                     ->label('N° RUC')
                     ->mask('99999999999')
                     ->suffixAction(
@@ -62,7 +66,8 @@ class CompanyResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('ruc'),
+                TextColumn::make('name'),
             ])
             ->filters([
                 //
@@ -87,9 +92,9 @@ class CompanyResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCompanies::route('/'),
-            'create' => Pages\CreateCompany::route('/create'),
-            'edit' => Pages\EditCompany::route('/{record}/edit'),
+            'index' => ListCompanies::route('/'),
+            'create' => CreateCompany::route('/create'),
+            'edit' => EditCompany::route('/{record}/edit'),
         ];
     }
 }

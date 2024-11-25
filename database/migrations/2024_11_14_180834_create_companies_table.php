@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('companies', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->char('company_num', 1)->nullable();
             $table->char('ruc', 20);
             $table->string('name');
@@ -25,8 +25,8 @@ return new class extends Migration
 
         Schema::create('company_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignUuid('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
