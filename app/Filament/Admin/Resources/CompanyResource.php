@@ -49,12 +49,6 @@ class CompanyResource extends Resource
                     ->label('PROVINCIA'),
                 Select::make('district_id')
                     ->label('DISTRITO'),
-                TextInput::make('address')
-                    ->label('DIRECCIÓN FISCAL'),
-                TextInput::make('phone_number')
-                    ->label('CELULAR')
-                    ->prefix('+51')
-                    ->mask('999999999'),
                 // Select::make('user_id')
                 //     ->label('ADMINISTRATOR')
                 //     ->relationship('user', 'name')

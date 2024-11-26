@@ -9,6 +9,7 @@ use App\Models\Company;
 use Filament\PanelProvider;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Http\Middleware\Authenticate;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -36,6 +37,8 @@ class AppPanelProvider extends PanelProvider
             ->path('app')
             ->tenantRoutePrefix('company')
             ->login()
+            ->maxContentWidth(MaxWidth::Full)
+            ->profile(isSimple: true)
             ->userMenuItems([
                 MenuItem::make('admin-panel')
                     ->label('Admin Panel')

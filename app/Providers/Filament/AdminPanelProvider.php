@@ -29,6 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->profile(isSimple:false)
             ->userMenuItems([
                 MenuItem::make('company-panel')
                     ->label('Company Panel')

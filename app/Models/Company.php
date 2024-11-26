@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Company extends Model
 {
@@ -15,13 +16,16 @@ class Company extends Model
         'ruc',
         'name',
         'status',
-        'address',
-        'phone_number',
     ];
 
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function information(): HasOne
+    {
+        return $this->hasOne(CompanyInformation::class);
     }
 
 

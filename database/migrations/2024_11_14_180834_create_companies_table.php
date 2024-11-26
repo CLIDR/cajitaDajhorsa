@@ -18,8 +18,6 @@ return new class extends Migration
             $table->char('ruc', 20);
             $table->string('name');
             $table->boolean('status')->default(true);
-            $table->string('address')->nullable();
-            $table->string('phone_number')->nullable();
             $table->timestamps();
         });
 
