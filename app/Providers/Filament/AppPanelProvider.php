@@ -38,12 +38,21 @@ class AppPanelProvider extends PanelProvider
             ->tenantRoutePrefix('company')
             ->login()
             ->maxContentWidth(MaxWidth::Full)
-            ->profile(isSimple: true)
+            ->profile(isSimple: false)
+            ->tenantMenuItems([
+                // MenuItem::make()
+                //     ->label('Settings')
+                //     ->url('/')
+                //     ->icon('heroicon-m-cog-8-tooth'),
+            ])
             ->userMenuItems([
                 MenuItem::make('admin-panel')
                     ->label('Admin Panel')
                     ->url('/admin')
-                    ->icon('heroicon-o-cog-6-tooth')
+                    ->icon('heroicon-o-cog-6-tooth'),
+                // MenuItem::make()
+                //     ->label('Lock session')
+                //     ->postAction(fn (): string => route('lock-session'))
             ])
             ->colors([
                 'primary' => Color::Orange,

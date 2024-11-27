@@ -18,6 +18,20 @@ class Company extends Model
         'status',
     ];
 
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class);

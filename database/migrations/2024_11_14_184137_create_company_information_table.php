@@ -21,11 +21,11 @@ return new class extends Migration
 
             $table->foreignUuid('company_id')->references('id')->on('companies')->cascadeOnDelete();
 
-            $table->char('department_id', 2)->index();
+            $table->char('department_id', 2)->index()->nullable();
             $table->foreign('department_id')->references('id')->on('departments');
-            $table->char('province_id', 4)->index();
+            $table->char('province_id', 4)->index()->nullable();
             $table->foreign('province_id')->references('id')->on('provinces');
-            $table->char('district_id', 6)->index();
+            $table->char('district_id', 6)->index()->nullable();
             $table->foreign('district_id')->references('id')->on('districts');
 
             $table->timestamps();
