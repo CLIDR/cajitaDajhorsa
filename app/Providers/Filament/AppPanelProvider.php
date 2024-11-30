@@ -82,5 +82,8 @@ class AppPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+            // ->plugins([
+            //     \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+            // ]);
     }
 }

@@ -29,6 +29,7 @@ use App\Filament\Resources\CompanyResource\RelationManagers;
 use App\Filament\Admin\Resources\CompanyResource\Pages\EditCompany;
 use App\Filament\Admin\Resources\CompanyResource\Pages\CreateCompany;
 use App\Filament\Admin\Resources\CompanyResource\Pages\ListCompanies;
+use App\Filament\Admin\Resources\CompanyResource\RelationManagers\UsersRelationManager;
 
 class CompanyResource extends Resource
 {
@@ -62,6 +63,11 @@ class CompanyResource extends Resource
                                     ->label('RAZON SOCIAL')
                                     ->autocapitalize('words')
                                     ->placeholder('DAJHORSA ASESOR EMPRESARIAL EIRL'),
+
+                                Select::make('user_id')
+                                    ->relationship('user', 'name')
+                                    ->preload()
+                                    ->native(false),
 
                                 Group::make()
                                     ->relationship('information')
@@ -178,7 +184,7 @@ class CompanyResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            UsersRelationManager::class,
         ];
     }
 
