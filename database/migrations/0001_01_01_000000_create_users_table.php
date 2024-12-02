@@ -38,9 +38,9 @@ return new class extends Migration
         });
 
         User::create([
-            'name' => 'Clider',
+            'name' => 'Clider Romani',
             'email' => 'clider.romani2016@gmail.com',
-            'password' => bcrypt('12345678')
+            'password' => bcrypt(12345678),
         ]);
     }
 

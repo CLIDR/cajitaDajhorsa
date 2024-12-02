@@ -19,12 +19,12 @@ return new class extends Migration
         });
 
         DB::table('banks')->insert([
-            ['id' => 1, 'description' => 'BANCO SCOTIABANK'],
-            ['id' => 2, 'description' => 'BANCO DE CREDITO DEL PERU'],
-            ['id' => 3, 'description' => 'BANCO DE COMERCIO'],
-            ['id' => 4, 'description' => 'BANCO PICHINCHA'],
-            ['id' => 5, 'description' => 'BBVA CONTINENTAL'],
-            ['id' => 6, 'description' => 'INTERBANK'],
+            ['id' => 1, 'description' => 'BANCO DE CRÉDITO DEL PERÚ (BCP)'],
+            ['id' => 2, 'description' => 'BBVA PERÚ'],
+            ['id' => 3, 'description' => 'INTERBANK'],
+            ['id' => 4, 'description' => 'SCOTIABANK PERÚ'],
+            ['id' => 5, 'description' => 'BANCO PICHINCHA'],
+            ['id' => 6, 'description' => 'BANCO DE LA NACIÓN'], // Usado para trámites gubernamentales
         ]);
 
         Schema::create('bank_accounts', function (Blueprint $table) {
