@@ -18,6 +18,9 @@ return new class extends Migration
             $table->text('observation')->nullable();
             $table->decimal('amount', 8, 2)->default(0);
             $table->enum('status', ['PAID', 'PARTIAL', 'PENDING', 'NULLED']);
+            $table->string('document_reference')->nullable();
+
+            $table->foreignUuid('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->timestamps();
         });
     }

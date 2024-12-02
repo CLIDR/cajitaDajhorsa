@@ -7,9 +7,11 @@ use Filament\Panel;
 use Filament\Widgets;
 use App\Models\Company;
 use Filament\PanelProvider;
+use Filament\Facades\Filament;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\MaxWidth;
+use App\Http\Middleware\ApplyTenantScopes;
 use Filament\Http\Middleware\Authenticate;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -81,7 +83,8 @@ class AppPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+                ApplyTenantScopes::class
+            ], isPersistent: true);
             // ->plugins([
             //     \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
             // ]);

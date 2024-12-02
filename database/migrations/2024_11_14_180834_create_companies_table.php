@@ -18,7 +18,7 @@ return new class extends Migration
             $table->char('ruc', 20);
             $table->string('name');
             $table->boolean('status')->default(true);
-            $table->foreignUuid('user_id')->references('id')->on('users')->nullable();
+            $table->foreignUuid('user_id')->nullable();
             $table->timestamps();
         });
 

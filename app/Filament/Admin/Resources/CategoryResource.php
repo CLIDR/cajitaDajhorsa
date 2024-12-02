@@ -8,7 +8,11 @@ use App\Models\Category;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\RichEditor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Admin\Resources\CategoryResource\Pages;
@@ -17,6 +21,7 @@ use App\Filament\Admin\Resources\CategoryResource\RelationManagers;
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
+    protected static ?string $navigationGroup = 'Cobranza';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -24,7 +29,18 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')
+                    ->label('NOMBRE DE CATEGORÍA'),
+                Select::make('type')
+                    ->label('TIPO')
+                    ->native(false)
+                    ->options([
+                        'income' => 'INGRESO',
+                        'expense' => 'GASTO',
+                    ]),
+                Textarea::make('description')
+                    ->label('DESCRIPCIÓN')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -32,11 +48,20 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('description'),
+                TextColumn::make('name')
+                    ->label('NOMBRE Y DESCRIPCIÓN')
+                    ->description(fn (Category $record): string => $record->description)
+                    ->searchable()
+                    ->wrap(),
                 TextColumn::make('type')
+                    ->label('TIPO')
                     ->badge()
-                    ->color('info'),
+                    ->color(fn (string $state): string => match ($state) {
+                        'income' => 'success',
+                        'expense' => 'danger',
+                        'fee' => 'info',
+                        'other' => 'warning',
+                    }),
             ])
             ->filters([
                 //

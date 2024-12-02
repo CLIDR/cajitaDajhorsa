@@ -44,6 +44,11 @@ return new class extends Migration
             ['name' => 'Otros Gastos Operacionales', 'type' => 'expense', 'context' => 'transactions', 'description' => 'Cualquier otro gasto recurrente relacionado con la operación diaria de la empresa.', 'created_at' => now(), 'updated_at' => now()],
         ];
 
+        DB::table('categories')->insert([
+            ['name' => 'Honorarios Mensuales', 'type' => 'fee', 'context' => 'transactions', 'description' => 'Ingresos recurrentes por servicios mensuales.', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Honorarios Anuales', 'type' => 'fee', 'context' => 'transactions', 'description' => 'Ingresos anuales por servicios especializados o balance de cuentas.', 'created_at' => now(), 'updated_at' => now()],
+        ]);
+
         // Insertar categorías en la base de datos
         DB::table('categories')->insert(array_merge($incomeCategories, $expenseCategories));
     }

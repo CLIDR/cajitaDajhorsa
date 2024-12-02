@@ -3,24 +3,23 @@
 namespace App\Filament\Admin\Resources;
 
 use Filament\Forms;
-use App\Models\Bank;
 use App\Models\Code;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\BankAccount;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Repeater;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Admin\Resources\BankResource\Pages;
-use App\Filament\Admin\Resources\BankResource\RelationManagers;
+use App\Filament\Admin\Resources\BankAccountResource\Pages;
+use App\Filament\Admin\Resources\BankAccountResource\RelationManagers;
 
-class BankResource extends Resource
+class BankAccountResource extends Resource
 {
-    protected static ?string $model = Bank::class;
+    protected static ?string $model = BankAccount::class;
 
     protected static ?string $navigationGroup = 'Configuración del Sistema';
 
@@ -30,23 +29,19 @@ class BankResource extends Resource
     {
         return $form
             ->schema([
+                Select::make('bank_id')
+                    ->label('BANCO')
+                    ->relationship('bank', 'description')
+                    ->native(false),
                 TextInput::make('description')
-                    ->helperText('Denominación de tu Banco'),
-                Repeater::make('acounts')
-                    ->relationship('acounts')
-                    ->collapsible()
-                    ->schema([
-                        TextInput::make('description')
-                            ->label('Descripcción')
-                            ->helperText('Cuenta Corriente, Ahorro, CCI, etc.'),
-                        TextInput::make('number')
-                            ->label('Número de Cuenta'),
-                        Select::make('currency_type_id')
-                            ->label('Moneda')
-                            ->preload()
-                            ->native(false)
-                            ->options(Code::byCatalog('02')->pluck('description','id')),
-                    ])->columns(3)->columnSpanFull(),
+                    ->label('TIPO O NOMBRE DE CUENTA'),
+                TextInput::make('number')
+                    ->label('NUMERO DE CUENTA'),
+                Select::make('currency_type_id')
+                    ->label('MONEDA')
+                    ->preload()
+                    ->native(false)
+                    ->options(Code::byCatalog('02')->pluck('description','id')),
             ]);
     }
 
@@ -54,8 +49,14 @@ class BankResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id'),
-                TextColumn::make('description'),
+                TextColumn::make('bank.description')
+                    ->label('BANCO'),
+                TextColumn::make('description')
+                    ->label('TIPO DE CUENTA'),
+                TextColumn::make('number')
+                    ->label('NÚMERO DE CUENTA'),
+                TextColumn::make('currency_type.code')
+                    ->label('MONEDA'),
             ])
             ->filters([
                 //
@@ -80,9 +81,9 @@ class BankResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBanks::route('/'),
-            'create' => Pages\CreateBank::route('/create'),
-            'edit' => Pages\EditBank::route('/{record}/edit'),
+            'index' => Pages\ListBankAccounts::route('/'),
+            'create' => Pages\CreateBankAccount::route('/create'),
+            'edit' => Pages\EditBankAccount::route('/{record}/edit'),
         ];
     }
 }
