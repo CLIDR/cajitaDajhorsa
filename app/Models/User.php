@@ -34,7 +34,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, HasDefau
         'name',
         'email',
         'password',
-        'lastest_company_id'
+        'latest_company_id'
     ];
 
     /**
@@ -76,22 +76,32 @@ class User extends Authenticatable implements FilamentUser, HasTenants, HasDefau
     }
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
-        return true; // TODO: Add logic to check if user can access panel builder
+        // Admin panel: check if user has super_admin role
+        if ($panel->getId() === 'admin') {
+            return $this->hasRole('super_admin');
+        }
+
+        // App panel: user must have at least one company associated
+        if ($panel->getId() === 'app') {
+            return $this->companies()->exists();
+        }
+
+        // For any other panel, deny access by default
+        return false;
     }
 
-    public function getTenantName(Model $panel): string
+    public function getTenantName(Model $tenant): string
     {
-        dd('hola');
-        return 'hola'; // TODO: Add
+        return $tenant->name;
     }
 
     public function getDefaultTenant(Panel $panel): ?Model
     {
-        return $this->lastestCompany;
+        return $this->latestCompany;
     }
 
     public function latestCompany(): BelongsTo
     {
-        return $this->belongsTo(Company::class, 'lastest_company_id');
+        return $this->belongsTo(Company::class, 'latest_company_id');
     }
 }

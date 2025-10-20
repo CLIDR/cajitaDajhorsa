@@ -18,7 +18,6 @@ class ApplyTenantScopes
      */
     public function handle(Request $request, Closure $next)
     {
-        // dd(Filament::getTenant());
         User::addGlobalScope(
             fn (Builder $query) => $query->whereBelongsTo(Filament::getTenant()),
         );
